@@ -53,7 +53,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import okhttp3.ConnectionSpec;
 import okhttp3.TlsVersion;
-import org.matrix.androidsdk.util.InternalSSLSocketFactory;
+import org.matrix.androidsdk.ssl.InternalSSLSocketFactory;
 
 /**
  * Class for making Matrix API calls.
