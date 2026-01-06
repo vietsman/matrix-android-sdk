@@ -46,6 +46,15 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import org.conscrypt.Conscrypt;
+import java.security.Security;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import okhttp3.ConnectionSpec;
+import okhttp3.TlsVersion;
+import org.matrix.androidsdk.util.InternalSSLSocketFactory;
+
 /**
  * Class for making Matrix API calls.
  */
@@ -287,6 +296,17 @@ public class RestClient<T> {
     private void refreshConnectionTimeout(NetworkConnectivityReceiver networkConnectivityReceiver) {
         OkHttpClient.Builder builder = mOkHttpClient.newBuilder();
 
+        try {
+            X509TrustManager tm = Conscrypt.getDefaultX509TrustManager();
+            SSLContext sslContext = SSLContext.getInstance("TLS", Conscrypt.newProvider());
+            sslContext.init(null, new TrustManager[] { tm }, null);
+
+        // Wrap the Conscrypt socket factory with InternalSSLSocketFactory
+            builder.sslSocketFactory(new InternalSSLSocketFactory(sslContext.getSocketFactory()), tm);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to set SSL Socket Factory", e);
+        }
+        
         if (networkConnectivityReceiver.isConnected()) {
             float factor = networkConnectivityReceiver.getTimeoutScale();
 
