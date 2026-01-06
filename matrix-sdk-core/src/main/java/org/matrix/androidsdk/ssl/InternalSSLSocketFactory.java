@@ -1,4 +1,4 @@
-package org.matrix.androidsdk.util;
+package org.matrix.androidsdk.ssl;
 
 import java.io.IOException;
 import java.net.InetAddress;
