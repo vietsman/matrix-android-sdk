@@ -6,11 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 
 buildscript {
     repositories {
-        jcenter()
+        maven { url "https://artifactory.appodeal.com/appodeal-public" }
     }
 
     dependencies {
-        classpath "io.realm:realm-gradle-plugin:5.12.0"
+        classpath "io.realm:realm-gradle-plugin:5.14.0"
     }
 }
 

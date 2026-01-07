@@ -5,7 +5,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        maven { url "https://artifactory.appodeal.com/appodeal-public" }
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -23,7 +23,8 @@ buildscript {
 allprojects {
     ext.support_lib_version = '28.0.0'
     ext.gson_version = '2.8.5'
-    ext.okhttp_version = '3.12.3'
+    ext.okhttp_version = '3.12.13'
+    ext.conscrypt_version = '2.5.2'
 
     repositories {
         // For olm library. This has to be declared first, to ensure that Olm library is not downloaded from another repo
@@ -36,10 +37,10 @@ allprojects {
         }
         // Jitsi repo
         maven {
-            url "https://github.com/vector-im/jitsi_libre_maven/raw/master/releases"
+            url "https://github.com/element-hq/jitsi_libre_maven/raw/main/releases"
         }
         google()
-        jcenter()
+        maven { url "https://artifactory.appodeal.com/appodeal-public" }
         mavenCentral()
     }
 }
